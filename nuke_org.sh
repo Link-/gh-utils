@@ -17,7 +17,7 @@ echo -e "\n"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   # Loop and delete all the repositories in an organisation
-  REPOS=$(gh api -X GET "/orgs/inner-sanctum/repos?per_page=100" | jq -cr ".[].full_name")
+  declare REPOS=$(gh api -X GET "/orgs/${ORG}/repos?per_page=100" | jq -cr ".[].full_name")
   for repo in $REPOS; do
     echo "Deleting: ${repo}"
     gh api -X DELETE "/repos/${repo}" | jq -r .message
